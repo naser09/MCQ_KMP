@@ -61,6 +61,7 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation("app.cash.sqldelight:android-driver:2.0.1")
             implementation(libs.koin.android)
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0-RC2")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -85,6 +86,8 @@ kotlin {
 
             //voyeager
             implementation(libs.voyager.navigator)
+            implementation(libs.voyager.bottomSheetNavigator)
+            implementation(libs.voyager.tabNavigator)
             implementation(libs.voyager.screenModel)
             implementation(libs.voyager.transitions)
             implementation(libs.voyager.koin)
@@ -97,6 +100,7 @@ kotlin {
             implementation(compose.desktop.currentOs)
             implementation(libs.ktor.client.cio)
             implementation("app.cash.sqldelight:sqlite-driver:2.0.1")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.8.0-RC2")
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)

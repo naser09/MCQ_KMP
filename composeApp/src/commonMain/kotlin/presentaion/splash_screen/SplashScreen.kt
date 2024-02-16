@@ -20,9 +20,12 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.russhwolf.settings.Settings
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.koinInject
+import presentaion.home_screen.HomeScreen
 import presentaion.login_screen.LoginScreen
 
 class SplashScreen : Screen {
@@ -31,10 +34,9 @@ class SplashScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-
         val scale = remember { Animatable(0f) } // Starting scale animation at 0
         val fadeAlpha = remember { Animatable(0f) } // Starting fade animation at 0
-
+        val settings = koinInject<Settings>()
         LaunchedEffect(key1 = true) {
             // Animation sequence with delay
             scale.animateTo(
@@ -46,7 +48,11 @@ class SplashScreen : Screen {
                 targetValue = 1f,
                 animationSpec = tween(durationMillis = 200)
             )
-            navigator.push(LoginScreen())
+            if (settings.getStringOrNull("token")==null){
+                navigator.push(HomeScreen())
+            }else{
+                navigator.push(LoginScreen())
+            }
            // navController.navigate("NextScreen") // Replace with your navigation route
         }
 

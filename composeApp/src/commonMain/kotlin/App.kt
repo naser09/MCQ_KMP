@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -16,24 +17,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.navigator.Navigator
 import com.example.HockeyPlayer
+import com.russhwolf.settings.ExperimentalSettingsApi
+import com.russhwolf.settings.Settings
 import core.TestDatabase
 import di.commonModule
 import di.sharedModule
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.KoinApplication
+import org.koin.compose.koinInject
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
-import org.koin.dsl.koinApplication
+import presentaion.home_screen.HomeScreen
 import presentaion.splash_screen.SplashScreen
 
 class Test:KoinComponent{
     val testDatabase by inject<TestDatabase>()
     suspend fun getData():List<HockeyPlayer> = testDatabase.get()
 }
-@OptIn(ExperimentalResourceApi::class)
+
 @Composable
 fun App() {
     KoinApplication(application = {
